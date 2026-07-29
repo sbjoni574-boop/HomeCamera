@@ -1,34 +1,27 @@
 const socket = io();
-const video = document.getElementById("localVideo");
-const startBtn = document.getElementById("startBtn");
 
-let currentCamera = "environment";
+const video = document.getElementById("localVideo");
+
 let stream;
 
 async function startCamera() {
+    try {
+        stream = await navigator.mediaDevices.getUserMedia({
+            video: {
+                facingMode: "environment"
+            },
+            audio: true
+        });
 
-    if(stream){
-        stream.getTracks().forEach(track=>track.stop());
+        video.srcObject = stream;
+
+        socket.emit("camera-ready");
+
+    } catch (err) {
+        alert("Camera permission is required.");
+        console.error(err);
     }
-
-    stream = await navigator.mediaDevices.getUserMedia({
-        video:{
-            facingMode:currentCamera
-        },
-        audio:true
-    });
-
-    video.srcObject = stream;
 }
 
-startBtn.onclick = startCamera;
-
-document.getElementById("switchBtn").onclick = ()=>{
-
-    currentCamera =
-    currentCamera==="environment"
-    ?"user":"environment";
-
-    startCamera();
-
-};
+// Page khulte hi camera permission maange
+window.onload = startCamera;

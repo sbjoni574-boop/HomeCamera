@@ -1,0 +1,8 @@
+HomeCamera/
+│── index.html
+│── viewer.html
+│── style.css
+│── camera.js
+│── viewer.js
+│── server.js
+│── package.json

@@ -1,3 +1,4 @@
+const socket = io();
 const video = document.getElementById("localVideo");
 const startBtn = document.getElementById("startBtn");
 

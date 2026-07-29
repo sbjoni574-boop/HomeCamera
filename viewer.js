@@ -1,6 +1,17 @@
-const connectBtn = document.getElementById("connectBtn");
-const remoteVideo = document.getElementById("remoteVideo");
+const socket = io();
 
-connectBtn.addEventListener("click", () => {
-    alert("Viewer page ready.\nServer aur WebRTC signaling abhi add karni baaki hai.");
+const connectBtn = document.getElementById("connectBtn");
+
+connectBtn.onclick = () => {
+
+    socket.emit("viewer-ready");
+
+    alert("Viewer Connected");
+
+};
+
+socket.on("camera-ready", () => {
+
+    alert("Camera Online");
+
 });

@@ -45,7 +45,13 @@ app.use(express.static(__dirname));
 io.on("connection", (socket) => {
 
     console.log("User Connected :", socket.id);
+socket.on("camera-ready", () => {
+    socket.broadcast.emit("camera-ready");
+});
 
+socket.on("viewer-ready", () => {
+    socket.broadcast.emit("viewer-ready");
+});
     socket.on("signal", (data) => {
         socket.broadcast.emit("signal", data);
     });

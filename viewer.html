@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home Camera Viewer</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+body{
+background:#111;
+color:#fff;
+text-align:center;
+font-family:Arial;
+margin:0;
+padding:20px;
+}
+
+video{
+width:100%;
+max-width:700px;
+background:#000;
+border-radius:12px;
+}
+
+button{
+padding:12px 20px;
+margin:10px;
+font-size:16px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+}
+</style>
+
+</head>
+<body>
+
+<h2>📺 Home Camera Viewer</h2>
+
+<video
+id="remoteVideo"
+autoplay
+playsinline
+controls>
+</video>
+
+<br>
+
+<button id="connectBtn">
+Connect Camera
+</button>
+
+<script src="viewer.js"></script>
+
+</body>
+</html>

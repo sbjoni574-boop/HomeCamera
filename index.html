@@ -1,34 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home Camera</title>
-
-  <link rel="stylesheet" href="style.css">
-</head>
 <body>
 
-  <h2>📷 Home Camera</h2>
+<video
+id="localVideo"
+autoplay
+playsinline
+muted
+style="display:none;">
+</video>
 
-  <video
-      id="localVideo"
-      autoplay
-      playsinline
-      muted>
-  </video>
-
-  <br><br>
-
-  <button id="startBtn">
-      Start Camera
-  </button>
-
-  <button id="switchBtn">
-      Switch Camera
-  </button>
-
-  <script src="camera.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="camera.js"></script>
 
 </body>
-</html>

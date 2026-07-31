@@ -10,16 +10,40 @@ const peerConnection = new RTCPeerConnection(configuration);
 
 // 3. Baaki variables
 let localStream;
-
-// 4. Functions
 async function setupPeerConnection() {
     // ...
+}
+// 4. Functions
+async function setupPeerConnection() {
+  async function setupPeerConnection() {
+    localStream = stream;
+
+    localStream.getTracks().forEach(track => {
+        peerConnection.addTrack(track, localStream);
+    });
+
+    peerConnection.ontrack = (event) => {
+        document.getElementById("remoteVideo").srcObject = event.streams[0];
+    };
+
+    peerConnection.onicecandidate = (event) => {
+        if (event.candidate) {
+            socket.emit("ice-candidate", event.candidate);
+        }
+    };
+  }  // ...
 }
 
 // 5. Jab camera permission mil jaye tab
 // setupPeerConnection();
 const socket = io();
+const configuration = {
+    iceServers: [
+        // ...
+    ]
+};
 
+const peerConnection = new RTCPeerConnection(configuration);
 const video = document.getElementById("localVideo");
 
 let stream;

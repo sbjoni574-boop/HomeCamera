@@ -1,29 +1,31 @@
-// 1. Configuration
+const socket = io();
+
+const video = document.getElementById("localVideo");
+
 const configuration = {
     iceServers: [
-        // ...
+        {
+            urls: "stun:stun.l.google.com:19302"
+        }
     ]
 };
 
-// 2. Peer connection
 const peerConnection = new RTCPeerConnection(configuration);
 
-// 3. Baaki variables
-let localStream;
-async function setupPeerConnection() {
-    // ...
-}
-// 4. Functions
-async function setupPeerConnection() {
-  async function setupPeerConnection() {
-    localStream = stream;
+let stream;
 
-    localStream.getTracks().forEach(track => {
-        peerConnection.addTrack(track, localStream);
+// WebRTC Setup
+async function setupPeerConnection() {
+
+    stream.getTracks().forEach(track => {
+        peerConnection.addTrack(track, stream);
     });
 
     peerConnection.ontrack = (event) => {
-        document.getElementById("remoteVideo").srcObject = event.streams[0];
+        const remoteVideo = document.getElementById("remoteVideo");
+        if (remoteVideo) {
+            remoteVideo.srcObject = event.streams[0];
+        }
     };
 
     peerConnection.onicecandidate = (event) => {
@@ -31,25 +33,12 @@ async function setupPeerConnection() {
             socket.emit("ice-candidate", event.candidate);
         }
     };
-  }  // ...
 }
 
-// 5. Jab camera permission mil jaye tab
-// setupPeerConnection();
-const socket = io();
-const configuration = {
-    iceServers: [
-        // ...
-    ]
-};
-
-const peerConnection = new RTCPeerConnection(configuration);
-const video = document.getElementById("localVideo");
-
-let stream;
-
+// Camera Start
 async function startCamera() {
     try {
+
         stream = await navigator.mediaDevices.getUserMedia({
             video: {
                 facingMode: "environment"
@@ -59,6 +48,8 @@ async function startCamera() {
 
         video.srcObject = stream;
 
+        await setupPeerConnection();
+
         socket.emit("camera-ready");
 
     } catch (err) {
@@ -67,5 +58,5 @@ async function startCamera() {
     }
 }
 
-// Page khulte hi camera permission maange
+// Page Load
 window.onload = startCamera;

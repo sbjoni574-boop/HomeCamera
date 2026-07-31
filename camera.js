@@ -1,3 +1,23 @@
+// 1. Configuration
+const configuration = {
+    iceServers: [
+        // ...
+    ]
+};
+
+// 2. Peer connection
+const peerConnection = new RTCPeerConnection(configuration);
+
+// 3. Baaki variables
+let localStream;
+
+// 4. Functions
+async function setupPeerConnection() {
+    // ...
+}
+
+// 5. Jab camera permission mil jaye tab
+// setupPeerConnection();
 const socket = io();
 
 const video = document.getElementById("localVideo");
